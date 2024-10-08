@@ -8,7 +8,7 @@ def operaciones() :
     print(sum, rest, mult, div)
 
 
-# esta función eliminar el sufijo de un archivo que se le pasa por parámetro
+# esta función elimina el sufijo de un archivo que se le pasa por parámetro
 def eliminar_sufijo():
     archivo = "holamundo.txt"
 
