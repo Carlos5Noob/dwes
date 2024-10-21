@@ -51,38 +51,48 @@ grupos = {
     }
 }
 
-def calcula_media_puntuaciones(grupos, ag="None", fase="None"):
+
+def calcula_media_puntuaciones(grupos, ag=None, fase=None):
     """
-    Calcula las medias de cada agrupación para cada fas, y la media general de todas las fases en las que participó la agrupacióin. Permite filtrar por agupración y fase especfíficas.
+    Calcula las medias de cada agrupación para cada fase, y la media general de todas las fases en las que participó la agrupación.
+    Permite filtrar por agrupación y fase específicas.
     :param grupos: Diccionario que contiene las modalidades y agrupaciones con sus respectivas puntuaciones.
-    :param ag:Nombre de la agrupación para la cual calcular las medias. Si no se especifica, calcula para todas(opcional).
-    :param fase:Fase específica para calcular la media. Si no se especifica, calcula para todas las fases(opcional).
+    :param ag: Nombre de la agrupación para la cual calcular las medias. Si no se especifica, calcula para todas (opcional).
+    :param fase: Fase específica para calcular la media. Si no se especifica, calcula para todas las fases (opcional).
     :return: Un diccionario con las agrupaciones y sus medias de puntuación total.
     """
     resultados = {}
 
-    for modalidades, agrupaciones in grupos.items():
+    for modalidad, agrupaciones in grupos.items():
         for nombre_agrupacion, fases in agrupaciones.items():
-            # Si se proporciona el argumento 'ag' y no coincide con el nombre de la agrupación, continue
-            if ag and nombre_agrupacion.lower() != ag.lower():
+            # Si se proporciona el argumento 'ag' y no coincide con el nombre de la agrupación, continuar
+            if ag and ag.lower() not in nombre_agrupacion.lower():
                 continue
+
             medias_fases = []
-            for nombre_fases, puntuaciones in fases.items():
-                # Si se proporciona fase y no coincide con el nombre de la fase, continue
-                if fase and nombre_fases.lower() != fase.lower():
+            for nombre_fase, puntuaciones in fases.items():
+                # Si se proporciona una fase y no coincide con el nombre de la fase, continuar
+                if fase and nombre_fase.lower() != fase.lower():
                     continue
+
                 # Calculamos la media de las puntuaciones por cada fase
-                puntuaciones_redondeadas = list(map(lambda x: round(x, 2), puntuaciones))
-                media_fase = round(sum(puntuaciones_redondeadas)/len(puntuaciones_redondeadas), 2)
+                media_fase = round(sum(puntuaciones) / len(puntuaciones), 2)
                 medias_fases.append(media_fase)
-                if medias_fases:
-                    # Calculamos la media total de todas las fases del concurso
-                    media_total = round(sum(medias_fases) / len(medias_fases), 2)
-                    resultados[nombre_agrupacion] = media_total
+
+            if medias_fases:
+                # Calculamos la media total de todas las fases del concurso
+                media_total = round(sum(medias_fases) / len(medias_fases), 2)
+                resultados[nombre_agrupacion] = media_total
+
     return resultados
 
 
+# Ejemplo de uso
 media_todas_las_agrupaciones = calcula_media_puntuaciones(grupos)
 print(f"La media de todas las agrupaciones es: {media_todas_las_agrupaciones}")
+
 media_yesterday = calcula_media_puntuaciones(grupos, ag="Yesterday")
 print(f"La media de 'Los Yesterday' es: {media_yesterday}")
+
+media_cuartos = calcula_media_puntuaciones(grupos, fase="cuartos")
+print(f"La media de todas las agrupaciones en cuartos es: {media_cuartos}")
