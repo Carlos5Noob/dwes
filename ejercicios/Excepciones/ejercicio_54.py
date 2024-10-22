@@ -1,38 +1,13 @@
-hotel = {}
-
-
 def menu():
-
-    while True:
-        print("\nIntroduzca una opción: ")
-        print("1. Agregar reserva. ")
-        print("2. Cancelar reserva. ")
-        print("3. Calcular costo total de una reserva. ")
-        print("4. Mostrar el resumen de todas las reservas.  ")
-        print("5. Salir ")
-
-        try:
-            opcion = int(input("Elija una opción: "))
-
-            match opcion:
-                case 1:
-                    agregar_reserva()
-                case 2:
-                    cancelar_reserva()
-                case 3:
-                    calcular_costo_total()
-                case 4:
-                    mostrar_resumen()
-                case 5:
-                    print("Has salido del programa. ")
-                    return
-                case _:
-                    print("Opción inválida")
-        except ValueError as e:
-            print(f"No has elegido una opción válida. {e}")
+    print("\nIntroduzca una opción: ")
+    print("1. Agregar reserva. ")
+    print("2. Cancelar reserva. ")
+    print("3. Calcular costo total de una reserva. ")
+    print("4. Mostrar el resumen de todas las reservas.  ")
+    print("5. Salir ")
 
 
-def agregar_reserva():
+def agregar_reserva(hotel):
 
     try:
         nombre_cliente = input(
@@ -50,7 +25,7 @@ def agregar_reserva():
         print("Reserva completada correctamente. ")
 
 
-def cancelar_reserva():
+def cancelar_reserva(hotel):
     nombre_cliente = input(
         "Has elegido la opción de cancelar una reserva. Introduzca el nombre del cliente que desees cancelar. "
     )
@@ -61,7 +36,7 @@ def cancelar_reserva():
         print(f"No existe ninguna reserva de {nombre_cliente}")
 
 
-def calcular_costo_total():
+def calcular_costo_total(hotel):
     cliente = input(
         "Has elegido calcular el costo total de una reserva. Introduzca el nombre del cliente que quieras revisar: "
     )
@@ -75,7 +50,7 @@ def calcular_costo_total():
         print(f"No se ha encontrado ninguna reserva para {cliente}")
 
 
-def mostrar_resumen():
+def mostrar_resumen(hotel):
     print(
         "Has elegido la opción de mostrar el resumen de todas las reservas del hotel. "
     )
@@ -88,4 +63,30 @@ def mostrar_resumen():
         print(f"{cliente}: {num_noches} noches, Tipo de habitación: {tipo_hab}")
 
 
-menu()
+def main():
+    hotel = {}
+    while True:
+        menu()
+        try:
+            opcion = int(input("Elija una opción: "))
+
+            match opcion:
+                case 1:
+                    agregar_reserva(hotel)
+                case 2:
+                    cancelar_reserva(hotel)
+                case 3:
+                    calcular_costo_total(hotel)
+                case 4:
+                    mostrar_resumen(hotel)
+                case 5:
+                    print("Has salido del programa. ")
+                    return
+                case _:
+                    print("Opción inválida")
+        except ValueError as e:
+            print(f"No has elegido una opción válida. {e}")
+
+
+if __name__ == "__main__":
+    main()
