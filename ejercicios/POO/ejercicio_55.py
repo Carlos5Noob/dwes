@@ -6,25 +6,24 @@ class Empleado:
     @property
     def nombre(self):
         return self.__nombre
-    
+
     @nombre.setter
     def nombre(self, valor):
         if isinstance(valor, str):
             self.__nombre = valor
-        else: 
+        else:
             raise ValueError("El nombre debe de ser una cadena de caracteres.")
-    
+
     @property
     def salario(self):
         return self.__salario
-    
+
     @salario.setter
     def salario(self, valor):
         if isinstance(valor, int):
             self.__salario = valor
-        else: 
+        else:
             raise ValueError("El salario debe de ser un número entero.")
-        
 
     def detalles(self):
         return f"Nombre empleado: {self.__nombre}. Salario: {self.__salario}$"
@@ -34,12 +33,12 @@ class Empleado:
 
     @classmethod
     def descuento_sueldo(cls, salario):
-        descuento_aplicado = ((salario*10)/100) 
+        descuento_aplicado = (salario * 10) / 100
         return salario - descuento_aplicado
-    
+
     @staticmethod
     def impuesto(salario):
-        return ((salario*21)/100)
+        return (salario * 21) / 100
 
 
 class Gerente(Empleado):
@@ -51,18 +50,20 @@ class Gerente(Empleado):
         return f"Nombre empleado: {self.nombre}. Salario: {self.salario}$. Departamento: {self.__departamento}"
 
 
-
 def main():
     gerente1 = Gerente("Lucio", 1200, 12)
     gerente2 = Gerente("Messi", 1450, 8)
+    gerent3 = Gerente("Cristiano", 950, 5)
 
     gerente2.salario = 2000
+    gerent3.nombre = "Neymar"
 
     print(gerente1.detalles())
     print(gerente2.detalles())
+    print(gerent3.detalles())
     print(Empleado.descuento_sueldo(100))
     print(Empleado.impuesto(75))
 
+
 if __name__ == "__main__":
     main()
-    
